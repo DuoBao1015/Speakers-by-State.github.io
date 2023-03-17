@@ -1,1 +1,118 @@
-hi
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Show and hide layers</title>
+<h1>Distribution of Chinese speakers in the U.S. (% of total Chinese speakers)<h1>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
+<style>
+table, th, td {
+  border:1px solid black; 
+}
+</style>
+<style>
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 10%; bottom: 0; width: 100%; }
+</style>
+<style>
+    .legend {
+        background-color: #fff;
+        border-radius: 3px;
+        bottom: 65%;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        font: 15px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+        padding: 10px;
+        position: absolute;
+        right: 10px;
+        z-index: 1;
+    }
+
+    .legend h4 {
+        margin: 0 0 10px;
+    }
+
+    .legend div span {
+        border-radius: 50%;
+        display: inline-block;
+        height: 10px;
+        margin-right: 5px;
+        width: 10px;
+    }
+</style>
+</head>
+<body>
+
+<nav id="menu"></nav>
+<div id="map"></div>
+<div id="state-legend" class="legend">
+    <h4>Population</h4>
+    <div><span style="background-color: #AF601A"></span>At least 30%</div>
+    <div><span style="background-color: #CA6F1E"></span>At least 10%</div>
+    <div><span style="background-color: #E67E22"></span>At least 5%</div>
+    <div><span style="background-color: #EB984E"></span>At least 4%</div>
+    <div><span style="background-color: #F0B27A"></span>At least 3%</div>
+    <div><span style="background-color: #F5CBA7"></span>At least 2%</div>
+    <div><span style="background-color: #FDEBD0"></span>At least 1%</div>
+    <div><span style="background-color: #FEF5E7"></span>At least 0.5%</div>
+    <div><span style="background-color: #FDFEFE"></span>Under 0.5%</div>
+</div>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1Ijoic3RlZm5hYmFvIiwiYSI6ImNrenN5NGo5aDc3ZjMyc3R2YTdhZDJ6N2oifQ.OvkQvGEQ5R_mYwejwzwxKQ';
+    const map = new mapboxgl.Map({
+        container: 'map',
+        // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+        style: 'mapbox://styles/stefnabao/clasju5yk000b15panqq648fv',
+        zoom: 3.06,
+        center: [-98.728, 39.270]
+    });
+
+    // Wait until the map has finished loading.
+    map.on('load', () => {
+        // Add a custom vector tileset source. This tileset contains
+        // point features representing museums. Each feature contains
+        // three properties. 
+        /////Asian////////////////////////////
+        map.addSource('Above', {
+            type: 'vector',
+            url: 'mapbox://stefnabao.9i3jegq0'
+        });
+        map.addLayer({
+            'id': 'Above',
+            'type': 'circle',
+            'source': 'Above',
+            'layout': {
+                // Make the layer visible by default.
+                'visibility': 'visible'
+            },
+            'paint': {
+                'circle-radius': 5.5,
+                'circle-color': 'rgba(0,0,0,1)'
+            },
+            'source-layer': 'Updated1-9h0eqj'
+        });
+        ////////Below//////////////////
+        map.addSource('Below', {
+            type: 'vector',
+            url: 'mapbox://stefnabao.92snkpup'
+        });
+        map.addLayer({
+            'id': 'Below',
+            'type': 'circle',
+            'source': 'Below',
+            'layout': {
+                // Make the layer visible by default.
+                'visibility': 'visible'
+            },
+            'paint': {
+                'circle-radius': 5.5,
+                'circle-color': 'rgba(0,0,0,1)'
+            },
+            'source-layer': 'Updated0-5pxa9k'
+        });
+    });
+</script>
+
+</body>
+</html>
